@@ -1,7 +1,35 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useRegisterUserMutation } from "../../redux/Features/AuthApi";
 
 const SignUp = () => {
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
+
+  const [formData, setFromData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  });
+
+  const handleChange = (e) => {
+    setFromData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log(formData);
+    try {
+      let res = await registerUser(formData).unwrap();
+      if (res.status === true) {
+        alert(res.message);
+      } else {
+        alert(res.message);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -21,16 +49,18 @@ const SignUp = () => {
           <form action="#" method="POST" className="space-y-6">
             <div>
               <label
-                htmlFor="email"
+                htmlFor="name"
                 className="block text-sm/6 font-medium text-gray-900"
               >
                 User Name
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={formData.name}
+                  onChange={handleChange}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -49,6 +79,8 @@ const SignUp = () => {
                   id="email"
                   name="email"
                   type="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -70,6 +102,8 @@ const SignUp = () => {
                   id="password"
                   name="password"
                   type="password"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -79,7 +113,7 @@ const SignUp = () => {
             <div>
               <div className="flex items-center justify-between">
                 <label
-                  htmlFor="confirmPassword"
+                  htmlFor="password_confirmation"
                   className="block text-sm/6 font-medium text-gray-900"
                 >
                   confirm Password
@@ -87,9 +121,11 @@ const SignUp = () => {
               </div>
               <div className="mt-2">
                 <input
-                  id="confirmPassword"
-                  name="confirmPassword"
+                  id="password_confirmation"
+                  name="password_confirmation"
                   type="password"
+                  value={formData.password_confirmation}
+                  onChange={handleChange}
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
@@ -100,9 +136,10 @@ const SignUp = () => {
             <div>
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign in
+                {isLoading ? "Loading..." : "Sign in"}
               </button>
             </div>
           </form>

@@ -15,7 +15,7 @@ const AuthApi = createApi({
       query: (data) => ({
         url: "/register",
         method: "POST",
-        data: data,
+        body: data,
       }),
 
       loginUser: builder.mutation({
@@ -23,7 +23,7 @@ const AuthApi = createApi({
         query: (data) => ({
           url: "/login",
           method: "POST",
-          data: data,
+          body: data,
         }),
       }),
     }),
