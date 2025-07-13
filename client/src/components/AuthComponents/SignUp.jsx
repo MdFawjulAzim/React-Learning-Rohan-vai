@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegisterUserMutation } from "../../redux/Features/AuthApi";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [registerUser, { isLoading }] = useRegisterUserMutation();
+
+  const [error, setError] = useState({});
 
   const [formData, setFromData] = useState({
     name: "",
@@ -12,22 +16,47 @@ const SignUp = () => {
     password_confirmation: "",
   });
 
+  const validateForm = () => {
+    const newError = {};
+    if (!formData.name) {
+      newError.name = "Name is required";
+    }
+    if (!formData.email) {
+      newError.email = "Email is required";
+    }
+    if (!formData.password) {
+      newError.password = "Password is required";
+    }
+    if (!formData.password_confirmation) {
+      newError.password_confirmation = "Password confirmation is required";
+    }
+    if (formData.password !== formData.password_confirmation) {
+      newError.password_confirmation =
+        "Password and password confirmation do not match";
+    }
+    setError(newError);
+    return Object.keys(newError).length === 0;
+  };
+
   const handleChange = (e) => {
     setFromData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     // console.log(formData);
     try {
       let res = await registerUser(formData).unwrap();
       if (res.status === true) {
-        alert(res.message);
-      } else {
-        alert(res.message);
+        toast.success(res.message);
+        navigate("/login");
       }
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      toast.error(err?.data?.message);
     }
   };
 
@@ -65,6 +94,7 @@ const SignUp = () => {
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                {error.name && <p className="text-red-500">{error.name}</p>}
               </div>
             </div>
             <div>
@@ -85,6 +115,7 @@ const SignUp = () => {
                   autoComplete="email"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                {error.email && <p className="text-red-500">{error.email}</p>}
               </div>
             </div>
 
@@ -108,6 +139,9 @@ const SignUp = () => {
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                {error.password && (
+                  <p className="text-red-500">{error.password}</p>
+                )}
               </div>
             </div>
             <div>
@@ -130,6 +164,9 @@ const SignUp = () => {
                   autoComplete="current-password"
                   className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
                 />
+                {error.password_confirmation && (
+                  <p className="text-red-500">{error.password_confirmation}</p>
+                )}
               </div>
             </div>
 
