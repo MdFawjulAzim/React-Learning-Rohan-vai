@@ -112,7 +112,7 @@ const SignUp = () => {
               to="/login"
               className="font-semibold ml-4 text-indigo-600 hover:text-indigo-500"
             >
-              sign up
+              sign In
             </Link>
           </p>
         </div>
