@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function HeaderLayout() {
+  const isLoggedIn = !!localStorage.getItem("token");
   return (
     <>
       <div>
@@ -36,9 +37,15 @@ function HeaderLayout() {
               </div>
               <div>
                 <ul>
-                  <Link to="/login" className="ring px-4 py-2 rounded">
-                    Login
-                  </Link>
+                  {isLoggedIn ? (
+                    <Link to="/" className="ring px-4 py-2 rounded">
+                      Dashboard
+                    </Link>
+                  ) : (
+                    <Link to="/login" className="ring px-4 py-2 rounded">
+                      Login
+                    </Link>
+                  )}
                 </ul>
               </div>
             </nav>

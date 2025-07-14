@@ -30,6 +30,68 @@ const Card = ({ cards }) => {
         </a>
       ))}
     </div>
+
+    // <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+    //   {cards.map((item, index) => (
+    //     <div
+    //       key={index}
+    //       className="bg-white rounded-lg shadow-sm hover:shadow-lg transition-shadow overflow-hidden group"
+    //     >
+    //       <div className="relative">
+    //         <img
+    //           src={item.image}
+    //           alt={item.title}
+    //           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+    //         />
+    //         <div className="absolute top-4 left-4 bg-white/90 px-2 py-1 rounded-full text-sm font-medium">
+    //           {/* {item.category} */}
+    //         </div>
+    //       </div>
+    //       <div className="p-6">
+    //         <h4 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+    //           {item.title}
+    //         </h4>
+    //         <div className="space-y-2 text-sm text-gray-600 mb-4">
+    //           <div className="flex items-center">
+    //             <span className="w-4 h-4 mr-2 bg-gray-300 rounded-full inline-block"></span>
+    //             <span>
+    //               {/* {new Date(item.start_date).toLocaleDateString(undefined, {
+    //             year: "numeric",
+    //             month: "short",
+    //             day: "numeric",
+    //           })} */}
+    //             </span>
+    //           </div>
+    //           <div className="flex items-center">
+    //             <span className="w-4 h-4 mr-2 bg-gray-300 rounded-full inline-block"></span>
+    //             <span>
+    //               {/* {new Date(item.start_date).toLocaleTimeString([], {
+    //             hour: "2-digit",
+    //             minute: "2-digit",
+    //           })} */}
+    //             </span>
+    //           </div>
+    //           <div className="flex items-center">
+    //             <span className="w-4 h-4 mr-2 bg-gray-300 rounded-full inline-block"></span>
+    //             {/* <span>{item.location}</span> */}
+    //           </div>
+    //           <div className="flex items-center">
+    //             <span className="w-4 h-4 mr-2 bg-gray-300 rounded-full inline-block"></span>
+    //             <span></span>
+    //           </div>
+    //         </div>
+    //         <div className="flex justify-between items-center">
+    //           <span className="text-xl font-bold text-blue-600">
+    //             {/* ৳ {item.ticket_price} */}
+    //           </span>
+    //           <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+    //             Book Now
+    //           </button>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   ))}
+    // </div>
   );
 };
 
