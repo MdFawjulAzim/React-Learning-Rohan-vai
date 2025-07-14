@@ -1,8 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Logout } from "../redux/AuthSlice/AuthSlice";
+import { useLogoutUserMutation } from "../redux/Features/AuthApi";
 
 function HeaderLayout() {
-  const isLoggedIn = !!localStorage.getItem("token");
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [loginOutUser, { isLoading }] = useLogoutUserMutation();
+
+  const role = useSelector((state) => state.Auth.role);
+
+  const handleLogout = async () => {
+    const logout = await loginOutUser().unwrap();
+    if (logout.status === true) {
+      dispatch(Logout());
+      navigate("/");
+    }
+  };
+  // console.log(role);
   return (
     <>
       <div>
@@ -36,15 +53,23 @@ function HeaderLayout() {
                 </ul>
               </div>
               <div>
-                <ul>
-                  {isLoggedIn ? (
-                    <Link to="/" className="ring px-4 py-2 rounded">
-                      Dashboard
-                    </Link>
-                  ) : (
+                <ul className="flex gap-5 py-2 font-bold">
+                  {role === null ? (
                     <Link to="/login" className="ring px-4 py-2 rounded">
                       Login
                     </Link>
+                  ) : (
+                    <>
+                      <Link to="/" className="ring px-4 py-2 rounded">
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="ring px-4 py-2 rounded"
+                      >
+                        {isLoading ? "Loading..." : "Logout"}
+                      </button>
+                    </>
                   )}
                 </ul>
               </div>

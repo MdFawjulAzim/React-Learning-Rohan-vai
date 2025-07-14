@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../../redux/Features/AuthApi";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUserRole } from "../../redux/AuthSlice/AuthSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [loginUser, { isLoading }] = useLoginUserMutation();
@@ -38,11 +41,16 @@ const Login = () => {
 
     try {
       let res = await loginUser(formData).unwrap();
-      console.log(res)
+      console.log(res);
 
       if (res?.status === true) {
         toast.success(res.message || "Login successful");
-        localStorage.setItem("token", res.token);
+        dispatch(
+          setUserRole({
+            role: res?.data?.role,
+            token: res?.token,
+          })
+        );
         navigate("/");
       } else {
         toast.error("Unexpected response from server.");
