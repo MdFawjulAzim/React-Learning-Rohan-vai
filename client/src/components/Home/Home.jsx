@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../card/Card.jsx";
 import { useGetEventDataQuery } from "../../redux/Features/EventData/EventDateApi.js";
+import Loader from "../../Loader/Loader.jsx";
 
 const Home = () => {
   const { data, error, isLoading } = useGetEventDataQuery({});
@@ -13,7 +14,7 @@ const Home = () => {
   }, [data]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
   if (error) {
     return <div>Error: {error.message}</div>;
