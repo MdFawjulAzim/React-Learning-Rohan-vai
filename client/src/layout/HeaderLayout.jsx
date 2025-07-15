@@ -60,7 +60,7 @@ function HeaderLayout() {
                     </Link>
                   ) : (
                     <>
-                      <Link to="/" className="ring px-4 py-2 rounded">
+                      <Link to={`/dashboard/${role}`} className="ring px-4 py-2 rounded">
                         Dashboard
                       </Link>
                       <button
