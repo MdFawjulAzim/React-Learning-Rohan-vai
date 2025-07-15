@@ -1,23 +1,23 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
-import { baseUrl } from "../../../baseUrl/baseUrl";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { baseUrl } from "../../../baseUrl/baseUrl.js";
 
-const EventDateApi = createApi({
-  reducerPath: "EventDateApi",
+const EventDataApi = createApi({
+  reducerPath: "EventDataApi",
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl()}/api`,
     credentials: "include",
   }),
+
   tagTypes: ["EventDataApi"],
   endpoints: (builder) => ({
-    getEventDate: builder.query({
+    getEventData: builder.query({
       query: () => ({
         url: "/event",
-        method: "GET",
       }),
     }),
   }),
 });
 
-export const { useGetEventDateQuery } = EventDateApi;
+export const { useGetEventDataQuery } = EventDataApi;
 
-export default EventDateApi;
+export default EventDataApi;

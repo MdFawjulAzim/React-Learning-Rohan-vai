@@ -1,31 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../card/Card.jsx";
-
-const card = [
-  {
-    image:
-      "https://floral-mountain-2867.fly.storage.tigris.dev/media/events/banner/ONI_HASAN_KV_1200x630.png",
-    title: "Azim vai ",
-    description:
-      "Access real-time sales reports and attendance data through our user-friendly dashboard, providing valuable insights at your fingertips. ",
-  },
-  {
-    image:
-      "https://floral-mountain-2867.fly.storage.tigris.dev/media/events/banner/ONI_HASAN_KV_1200x630.png",
-    title: "Azim vai ",
-    description:
-      "Access real-time sales reports and attendance data through our user-friendly dashboard, providing valuable insights at your fingertips. ",
-  },
-  {
-    image:
-      "https://floral-mountain-2867.fly.storage.tigris.dev/media/events/banner/ONI_HASAN_KV_1200x630.png",
-    title: "Azim vai ",
-    description:
-      "Access real-time sales reports and attendance data through our user-friendly dashboard, providing valuable insights at your fingertips. ",
-  },
-];
+import { useGetEventDataQuery } from "../../redux/Features/EventData/EventDateApi.js";
 
 const Home = () => {
+  const { data, error, isLoading } = useGetEventDataQuery({});
+  const [eventData, setEventData] = useState({});
+
+  useEffect(() => {
+    if (data) {
+      setEventData(data);
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div>
       <div className="container w-max-[1140px] mx-auto">
@@ -36,7 +29,7 @@ const Home = () => {
           </p>
         </div>
         <div className="px-5 ">
-          <Card cards={card} />
+          <Card cards={eventData} />
         </div>
       </div>
     </div>
