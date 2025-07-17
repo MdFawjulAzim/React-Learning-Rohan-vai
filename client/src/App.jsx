@@ -15,6 +15,7 @@ import AdminContent from "./components/Dashboard/content/AdminContent";
 import UserContent from "./components/Dashboard/content/UserContent";
 import DashboardLayout from "./layout/DashboardLayout";
 import ErrorPage from "./components/Error/ErrorPage";
+import EventDetailsPage from './pages/EventDetailsPage';
 
 function AppRoutes() {
   const role = useSelector((state) => state.Auth.role);
@@ -31,6 +32,7 @@ function AppRoutes() {
     <Routes>
       <Route path="*" element={<ErrorPage />} />
       <Route path="/" element={<HomePage />} />
+      <Route path="/details/:id" element={<EventDetailsPage />} />
 
       {role ? (
         <>

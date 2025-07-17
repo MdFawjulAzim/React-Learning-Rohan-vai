@@ -15,9 +15,15 @@ const EventDataApi = createApi({
         url: "/event",
       }),
     }),
+    getEventDataById: builder.query({
+      query: (id) => ({
+        url: `/event/${id}`,
+        providesTags: (result, error, id) => [{ type: "EventDataApi", id }],
+      }),
+    }),
   }),
 });
 
-export const { useGetEventDataQuery } = EventDataApi;
+export const { useGetEventDataQuery, useGetEventDataByIdQuery } = EventDataApi;
 
 export default EventDataApi;

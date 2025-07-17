@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = ({ cards }) => {
   const EventData = cards?.data;
@@ -8,10 +9,10 @@ const Card = ({ cards }) => {
   return (
     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 py-5">
       {EventData.map((item, index) => (
-        <a
+        <Link
+          to={`/details/${item?.id}`}
           key={index}
           className="p-6 bg-white border border-indigo-200 rounded-2xl hover:shadow-xl transition-shadow flex flex-col"
-          href="#"
         >
           <img
             src={item.image_url}
@@ -37,12 +38,12 @@ const Card = ({ cards }) => {
           <div className="mt-5">
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700"
+              className="cursor-pointer inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700"
             >
               View Details
             </button>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
   );
