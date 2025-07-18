@@ -1,39 +1,51 @@
 import React from "react";
+import { useGetAllUsersQuery } from "../../../../redux/Features/UserData/UserDataApi";
+import Loader from "./../../../../Loader/Loader";
+import ErrorPage from "./../../../Error/ErrorPage";
 
 const UserManagement = () => {
-  const users = [
-    { id: 1, name: "Fawjul", email: "fawjul@example.com", role: "user" },
-    { id: 2, name: "Admin", email: "admin@example.com", role: "admin" },
-  ];
+  const { data, isLoading, isError } = useGetAllUsersQuery();
+
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorPage Error={"User not found"} />;
 
   return (
-    <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">User Management</h1>
-      <table className="w-full border text-sm">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2">#</th>
-            <th className="p-2">Name</th>
-            <th className="p-2">Email</th>
-            <th className="p-2">Role</th>
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, idx) => (
-            <tr key={user.id} className="border-b">
-              <td className="p-2">{idx + 1}</td>
-              <td className="p-2">{user.name}</td>
-              <td className="p-2">{user.email}</td>
-              <td className="p-2">{user.role}</td>
-              <td className="p-2 space-x-2">
-                <button className="text-blue-600">Edit</button>
-                <button className="text-red-600">Delete</button>
-              </td>
+    <div className="bg-white p-6 rounded-lg shadow-md mt-4">
+      <h2 className="text-xl font-bold mb-4 text-gray-800">User Management</h2>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full table-auto border border-gray-300 rounded-lg overflow-hidden">
+          <thead className="bg-gray-100 text-left">
+            <tr>
+              <th className="px-4 py-2 border">#</th>
+              <th className="px-4 py-2 border">Name</th>
+              <th className="px-4 py-2 border">Email</th>
+              <th className="px-4 py-2 border">Role</th>
+              <th className="px-4 py-2 border">Created At</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data?.data?.map((user, index) => (
+              <tr
+                key={user.id}
+                className="hover:bg-gray-50 text-sm text-gray-700"
+              >
+                <td className="px-4 py-2 border">{index + 1}</td>
+                <td className="px-4 py-2 border">{user.name}</td>
+                <td className="px-4 py-2 border">{user.email}</td>
+                <td className="px-4 py-2 border">{user.role?.name ?? "N/A"}</td>
+                <td className="px-4 py-2 border">
+                  {new Date(user.created_at).toLocaleDateString()}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p className="mt-4 text-sm text-gray-600">
+        Total Users: <strong>{data?.total_user}</strong>
+      </p>
     </div>
   );
 };
