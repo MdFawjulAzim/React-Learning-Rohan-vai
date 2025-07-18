@@ -1,11 +1,13 @@
 import React from "react";
 import { useGetAllTicketsQuery } from "../../../../redux/Features/TicketData/TicketDataApi";
+import Loader from "../../../../Loader/Loader";
+import ErrorPage from "../../../Error/ErrorPage";
 
 const TicketManagement = () => {
   const { data, isLoading, isError } = useGetAllTicketsQuery();
 
-  if (isLoading) return <p>Loading tickets...</p>;
-  if (isError) return <p>Failed to load ticket data.</p>;
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorPage Error={"Ticket not found"} />;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mt-4">

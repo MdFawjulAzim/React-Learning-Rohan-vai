@@ -20,6 +20,7 @@ import EventDetailsPage from "./pages/EventDetailsPage";
 import UserManagement from "./components/Dashboard/content/admin/UserManagement";
 import TicketManagement from "./components/Dashboard/content/admin/TicketManagement";
 import CategoryManagement from "./components/Dashboard/content/admin/CategoryManagement";
+import EventManagement from "./components/Dashboard/content/admin/EventManagement";
 
 function AppRoutes() {
   const role = useSelector((state) => state.Auth.role);
@@ -50,6 +51,7 @@ function AppRoutes() {
               <Route path="admin/users" element={<UserManagement />} />
               <Route path="admin/tickets" element={<TicketManagement />} />
               <Route path="admin/categories" element={<CategoryManagement />} />
+              <Route path="admin/event" element={<EventManagement />} />
             </Route>
             <Route element={<ProtectionRouter allowRole="user" />}>
               <Route path="user" element={<UserContent />} />

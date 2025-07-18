@@ -5,6 +5,7 @@ import {
   MdConfirmationNumber,
   MdPeopleAlt,
   MdArrowBack,
+  MdEvent,
 } from "react-icons/md";
 
 const linkClass = ({ isActive }) =>
@@ -34,6 +35,10 @@ const AdminSidebar = () => {
         <NavLink to="/dashboard/admin/categories" className={linkClass}>
           <MdCategory size={20} />
           Manage Categories
+        </NavLink>
+        <NavLink to="/dashboard/admin/event" className={linkClass}>
+          <MdEvent size={20} />
+          Manage Event
         </NavLink>
         <NavLink to="/" className={linkClass}>
           <MdArrowBack size={20} />

@@ -1,11 +1,13 @@
 import React from "react";
 import { useGetAllCategoriesQuery } from "../../../../redux/Features/CategoryData/CategoryDataApi";
+import Loader from "../../../../Loader/Loader";
+import ErrorPage from "../../../Error/ErrorPage";
 
 const CategoryManagement = () => {
   const { data, isLoading, isError } = useGetAllCategoriesQuery();
 
-  if (isLoading) return <p>Loading categories...</p>;
-  if (isError) return <p>Failed to load categories.</p>;
+  if (isLoading) return <Loader />;
+  if (isError) return <ErrorPage Error={"Category not found"} />;
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md mt-4">
