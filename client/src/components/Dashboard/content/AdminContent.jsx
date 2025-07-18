@@ -1,11 +1,18 @@
 import React from "react";
+import AdminMainContent from "./admin/AdminMainContent";
+// import UserManagement from "./admin/UserManagement";
+// import TicketManagement from "./admin/TicketManagement";
+// import CategoryManagement from "./admin/CategoryManagement";
 
-function AdminContent() {
+const AdminContent = () => {
   return (
     <>
-      <h1>AdminContent</h1>
+      <AdminMainContent />
+      {/* <UserManagement />
+      <TicketManagement />
+      <CategoryManagement /> */}
     </>
   );
-}
+};
 
 export default AdminContent;

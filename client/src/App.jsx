@@ -15,7 +15,11 @@ import AdminContent from "./components/Dashboard/content/AdminContent";
 import UserContent from "./components/Dashboard/content/UserContent";
 import DashboardLayout from "./layout/DashboardLayout";
 import ErrorPage from "./components/Error/ErrorPage";
-import EventDetailsPage from './pages/EventDetailsPage';
+import EventDetailsPage from "./pages/EventDetailsPage";
+// import AdminMainContent from "./components/Dashboard/content/admin/AdminMainContent";
+import UserManagement from "./components/Dashboard/content/admin/UserManagement";
+import TicketManagement from "./components/Dashboard/content/admin/TicketManagement";
+import CategoryManagement from "./components/Dashboard/content/admin/CategoryManagement";
 
 function AppRoutes() {
   const role = useSelector((state) => state.Auth.role);
@@ -42,6 +46,10 @@ function AppRoutes() {
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route element={<ProtectionRouter allowRole="admin" />}>
               <Route path="admin" element={<AdminContent />} />
+              {/* <Route path="admin" element={<AdminMainContent />} /> */}
+              <Route path="admin/users" element={<UserManagement />} />
+              <Route path="admin/tickets" element={<TicketManagement />} />
+              <Route path="admin/categories" element={<CategoryManagement />} />
             </Route>
             <Route element={<ProtectionRouter allowRole="user" />}>
               <Route path="user" element={<UserContent />} />
