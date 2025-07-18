@@ -1,3 +1,4 @@
+// AdminSidebar.jsx (Sidebar Component)
 import { NavLink } from "react-router-dom";
 import {
   MdDashboard,
@@ -17,7 +18,7 @@ const linkClass = ({ isActive }) =>
 
 const AdminSidebar = () => {
   return (
-    <div className="h-full p-6 space-y-4">
+    <div className="h-full p-6 space-y-6 bg-gray-800">
       <h2 className="text-2xl font-bold text-green-400 mb-6">Admin Panel</h2>
       <nav className="flex flex-col space-y-3">
         <NavLink to="/dashboard/admin" className={linkClass}>

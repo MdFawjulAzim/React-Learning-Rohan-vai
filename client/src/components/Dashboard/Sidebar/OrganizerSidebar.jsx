@@ -5,6 +5,7 @@ import {
   MdConfirmationNumber,
   MdPeopleAlt,
   MdArrowBack,
+  MdEvent,
 } from "react-icons/md";
 
 const linkClass = ({ isActive }) =>
@@ -16,8 +17,8 @@ const linkClass = ({ isActive }) =>
 
 const OrganizerSidebar = () => {
   return (
-    <div className="h-full p-6 space-y-4">
-      <h2 className="text-2xl font-bold text-green-400 mb-6">Organizer Dashboard Panel</h2>
+    <div className="h-full p-6 space-y-6 bg-gray-800">
+      <h2 className="text-2xl font-bold text-green-400 mb-6">Admin Panel</h2>
       <nav className="flex flex-col space-y-3">
         <NavLink to="/dashboard/admin" className={linkClass}>
           <MdDashboard size={20} />
@@ -34,6 +35,10 @@ const OrganizerSidebar = () => {
         <NavLink to="/dashboard/admin/categories" className={linkClass}>
           <MdCategory size={20} />
           Manage Categories
+        </NavLink>
+        <NavLink to="/dashboard/admin/event" className={linkClass}>
+          <MdEvent size={20} />
+          Manage Event
         </NavLink>
         <NavLink to="/" className={linkClass}>
           <MdArrowBack size={20} />
