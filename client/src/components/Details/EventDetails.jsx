@@ -1,7 +1,8 @@
 import React from "react";
+import Loader from "./../../Loader/Loader";
 
 const EventDetails = ({ eventDetails }) => {
-  if (!eventDetails) return <div>Loading...</div>;
+  if (!eventDetails || !eventDetails.data) return <Loader />;
 
   const {
     title,
@@ -14,7 +15,7 @@ const EventDetails = ({ eventDetails }) => {
     category,
     ticket_price,
     privacy_policy,
-  } = eventDetails;
+  } = eventDetails.data;
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-8">
@@ -34,27 +35,27 @@ const EventDetails = ({ eventDetails }) => {
 
             {/* Date & Time */}
             <p className="text-xl text-gray-700 mb-2 flex items-center">
-              📅 <span className="font-semibold ml-2">Date:</span>{" "}
-              {new Date(start_date).toLocaleDateString()} —{" "}
+              📅 <span className="font-semibold ml-2">Date:</span>
+              {new Date(start_date).toLocaleDateString()} —
               {new Date(end_date).toLocaleDateString()}
             </p>
             <p className="text-xl text-gray-700 mb-6 flex items-center">
-              ⏰ <span className="font-semibold ml-2">Time:</span>{" "}
+              ⏰ <span className="font-semibold ml-2">Time:</span>
               {new Date(start_date).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-              })}{" "}
-              -{" "}
+              })}
+              -
               {new Date(end_date).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
-              })}{" "}
+              })}
               (GMT+6)
             </p>
 
             {/* Location */}
             <p className="text-xl text-gray-700 mb-6 flex items-center">
-              📍 <span className="font-semibold ml-2">Location:</span>{" "}
+              📍 <span className="font-semibold ml-2">Location:</span>
               {location}
             </p>
 
@@ -98,28 +99,32 @@ const EventDetails = ({ eventDetails }) => {
             </div>
 
             {/* Organizer Info */}
-            <div className="bg-gray-50 p-6 rounded-lg shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                Contact Organizer
+            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 transition hover:shadow-xl">
+              <h3 className="text-2xl font-bold text-gray-800 mb-5">
+                🎤 Contact Organizer
               </h3>
-              <div className="flex items-center mb-4">
+              <div className="flex items-center mb-5">
                 <img
-                  className="w-16 h-16 rounded-full object-cover mr-4"
-                  src="https://via.placeholder.com/150/9370DB/ffffff?text=Org"
-                  alt={organizer?.name}
+                  className="w-16 h-16 rounded-full object-cover border-2 border-indigo-500 shadow-md mr-4"
+                  // src="https://via.placeholder.com/150/9370DB/ffffff?text=Org"
+                  // alt={organizer?.name}
                 />
                 <div>
-                  <p className="text-xl font-semibold text-gray-900">
+                  <p className="text-lg font-semibold text-gray-900">
                     {organizer?.name}
                   </p>
-                  <p className="text-indigo-600">{organizer?.email}</p>
+                  <p className="text-indigo-600 text-sm">{organizer?.email}</p>
                 </div>
               </div>
-              <p className="text-gray-700">
-                For inquiries and sponsorship, reach out to the organizer.
+              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                For inquiries, partnership opportunities, or sponsorship — feel
+                free to get in touch with the organizer.
               </p>
-              <button className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
-                Send Message
+              <button
+                type="button"
+                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-lg shadow-md transition duration-300 text-base"
+              >
+                ✉️ Send Message
               </button>
             </div>
           </div>
