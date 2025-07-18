@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "./../../baseUrl/baseUrl";
 
 // Optional: Get token from localStorage or Redux (if using JWT auth)
-const baseQuery = fetchBaseQuery({
+export const baseQuery = fetchBaseQuery({
   baseUrl: `${baseUrl()}/api`,
   credentials: "include", // for sending cookies
   prepareHeaders: (headers) => {
