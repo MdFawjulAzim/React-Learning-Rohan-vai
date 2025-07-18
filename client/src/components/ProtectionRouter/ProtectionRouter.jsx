@@ -12,7 +12,7 @@ const ProtectionRouter = ({ allowRole }) => {
 
   if (role !== allowRole) {
     toast.error("You are not allowed to access this page");
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
 
   return <Outlet />;
