@@ -6,24 +6,44 @@ const EventDataApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: `${baseUrl()}/api`,
     credentials: "include",
-  }),
+    prepareHeaders: (headers) => {
+      let token = localStorage.getItem("token");
 
-  tagTypes: ["EventDataApi"],
+      try {
+        token = JSON.parse(token);
+      } catch (e) {
+        console.log(e);
+        // If already a string, do nothing
+      }
+
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+
+      return headers;
+    },
+  }),
+  tagTypes: ["EventData"],
   endpoints: (builder) => ({
     getEventData: builder.query({
-      query: () => ({
-        url: "/event",
-      }),
+      query: () => "/event",
+      providesTags: ["EventData"],
     }),
     getEventDataById: builder.query({
-      query: (id) => ({
-        url: `/event/${id}`,
-        providesTags: (result, error, id) => [{ type: "EventDataApi", id }],
-      }),
+      query: (id) => `/event/${id}`,
+      providesTags: (result, error, id) => [{ type: "EventData", id }],
+    }),
+    getAllEventsForOrganizer: builder.query({
+      query: () => "/events",
+      providesTags: ["EventData"],
     }),
   }),
 });
 
-export const { useGetEventDataQuery, useGetEventDataByIdQuery } = EventDataApi;
+export const {
+  useGetEventDataQuery,
+  useGetEventDataByIdQuery,
+  useGetAllEventsForOrganizerQuery,
+} = EventDataApi;
 
 export default EventDataApi;

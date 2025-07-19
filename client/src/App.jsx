@@ -22,6 +22,7 @@ import TicketManagement from "./components/Dashboard/content/admin/TicketManagem
 import CategoryManagement from "./components/Dashboard/content/admin/CategoryManagement";
 import EventManagement from "./components/Dashboard/content/admin/EventManagement";
 import MyTicketsContent from "./components/Dashboard/content/user/MyTicketsContent";
+import EventManagementOrganizer from "./components/Dashboard/content/organizer/EventManagementOrganizer";
 
 function AppRoutes() {
   const role = useSelector((state) => state.Auth.role);
@@ -60,6 +61,7 @@ function AppRoutes() {
             </Route>
             <Route element={<ProtectionRouter allowRole="organizer" />}>
               <Route path="organizer" element={<OrganizerContent />} />
+              <Route path="organizer/event" element={<EventManagementOrganizer />} />
             </Route>
           </Route>
         </>
