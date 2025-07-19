@@ -1,9 +1,10 @@
 import React from "react";
+import UserMainContent from "./user/UserMainContent";
 
 const UserContent = () => {
   return (
     <>
-      <h1>UserContent</h1>
+      <UserMainContent />
     </>
   );
 };
