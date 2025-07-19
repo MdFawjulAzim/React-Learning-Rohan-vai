@@ -18,6 +18,7 @@ const MyTicketsContent = () => {
           <thead className="bg-gray-100 text-left">
             <tr>
               <th className="px-4 py-2 border">#</th>
+              <th className="px-4 py-2 border">Image</th> {/* নতুন কলাম */}
               <th className="px-4 py-2 border">Event</th>
               <th className="px-4 py-2 border">Category</th>
               <th className="px-4 py-2 border">Location</th>
@@ -31,8 +32,24 @@ const MyTicketsContent = () => {
             {data?.data?.map((ticket, index) => (
               <tr key={ticket.id} className="hover:bg-gray-50 text-gray-700">
                 <td className="px-4 py-2 border">{index + 1}</td>
+
+                {/* Image */}
+                <td className="px-4 py-2 border">
+                  {ticket.event?.image_url ? (
+                    <img
+                      src={ticket.event.image_url}
+                      alt={ticket.event.title}
+                      className="w-16 h-10 object-cover rounded"
+                    />
+                  ) : (
+                    <span>No Image</span>
+                  )}
+                </td>
+
                 <td className="px-4 py-2 border">{ticket.event?.title}</td>
-                <td className="px-4 py-2 border">{ticket.event?.category_name}</td>
+                <td className="px-4 py-2 border">
+                  {ticket.event?.category_name}
+                </td>
                 <td className="px-4 py-2 border">{ticket.event?.location}</td>
                 <td className="px-4 py-2 border">{ticket.ticket_quantity}</td>
                 <td className="px-4 py-2 border">
