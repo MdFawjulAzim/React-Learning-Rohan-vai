@@ -13,7 +13,7 @@ const EventDataApi = createApi({
         token = JSON.parse(token);
       } catch (e) {
         console.log(e);
-        // If already a string, do nothing
+        // Token is already a string
       }
 
       if (token) {
@@ -26,13 +26,15 @@ const EventDataApi = createApi({
   tagTypes: ["EventData"],
   endpoints: (builder) => ({
     getEventData: builder.query({
-      query: () => "/event",
+      query: ({ page = 1, count = 10 }) => `/event?page=${page}&count=${count}`,
       providesTags: ["EventData"],
     }),
+
     getEventDataById: builder.query({
       query: (id) => `/event/${id}`,
       providesTags: (result, error, id) => [{ type: "EventData", id }],
     }),
+
     getAllEventsForOrganizer: builder.query({
       query: () => "/events",
       providesTags: ["EventData"],

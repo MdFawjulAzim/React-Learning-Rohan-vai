@@ -1,11 +1,12 @@
 import React from "react";
 import { useGetAdminDashboardQuery } from "../../../../redux/Features/Dashboard/DashboardApi";
+import Loader from "../../../../Loader/Loader";
 
 const AdminMainContent = () => {
   const { data, isLoading, error } = useGetAdminDashboardQuery();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Failed to load dashboard data.</p>;
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage Error={"Dashboard not found"} />;
 
   const totalUsers = data?.data?.users?.total || 0;
   const totalEvents = data?.data?.events?.total || 0;

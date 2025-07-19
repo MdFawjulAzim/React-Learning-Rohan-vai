@@ -1,20 +1,13 @@
 import React from "react";
 import { MdEvent, MdConfirmationNumber, MdAttachMoney } from "react-icons/md";
 import { useGetOrganizerDashboardQuery } from "../../../../redux/Features/Dashboard/DashboardApi";
+import Loader from "../../../../Loader/Loader";
 
 const OrganizerMainContent = () => {
   const { data, isLoading, error } = useGetOrganizerDashboardQuery();
 
-  if (isLoading)
-    return (
-      <p className="text-center py-10 text-gray-500 text-lg">Loading...</p>
-    );
-  if (error)
-    return (
-      <p className="text-center py-10 text-red-500 text-lg">
-        Failed to load dashboard data.
-      </p>
-    );
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage Error={"Dashboard not found"} />;
 
   const totalEvents = data?.data?.total_events || 0;
   const totalTicketsSold = data?.data?.total_tickets_sold || 0;
