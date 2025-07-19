@@ -17,6 +17,18 @@ const Login = () => {
     password: "",
   });
 
+  // Demo user data
+  const demoUsers = [
+    { email: "admin@gmail.com", password: "password" },
+    { email: "user@gmail.com", password: "password" },
+    { email: "organizer@gmail.com", password: "password" },
+  ];
+
+  // Autofill demo credentials
+  const fillDemoData = (user) => {
+    setFormData({ email: user.email, password: user.password });
+  };
+
   const validateForm = () => {
     const newError = {};
     if (!formData.email) {
@@ -56,105 +68,123 @@ const Login = () => {
         toast.error("Unexpected response from server.");
       }
     } catch (err) {
-      toast.error(err?.data?.message);
+      toast.error(err?.data?.message || "Login failed");
     }
   };
 
   return (
-    <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="Your Company"
-            src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
-          />
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Login your account
-          </h2>
-        </div>
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <img
+          alt="Your Company"
+          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+          className="mx-auto h-10 w-auto"
+        />
+        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          Login your account
+        </h2>
+      </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
-            <div>
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm/6 font-medium text-gray-900"
+            >
+              Email address
+            </label>
+            <div className="mt-2">
+              <input
+                id="email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                autoComplete="email"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              />
+              {error.email && (
+                <p className="text-red-500 text-sm mt-1">{error.email}</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between">
               <label
-                htmlFor="email"
+                htmlFor="password"
                 className="block text-sm/6 font-medium text-gray-900"
               >
-                Email address
+                Password
               </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-                {error.email && <p className="text-red-500">{error.email}</p>}
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-sm/6 font-medium text-gray-900"
+              <div className="text-sm">
+                <a
+                  href="#"
+                  className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
-                />
-                {error.password && (
-                  <p className="text-red-500">{error.password}</p>
-                )}
+                  Forgot password?
+                </a>
               </div>
             </div>
-
-            <div>
-              <button
-                type="submit"
-                onClick={handleSubmit}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                {isLoading ? "Loading..." : "Log in"}
-              </button>
+            <div className="mt-2">
+              <input
+                id="password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+                autoComplete="current-password"
+                className="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+              />
+              {error.password && (
+                <p className="text-red-500 text-sm mt-1">{error.password}</p>
+              )}
             </div>
-          </form>
+          </div>
 
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            create an account
-            <Link
-              to="/signup"
-              className="font-semibold ml-4 text-indigo-600 hover:text-indigo-500"
+          <div>
+            <button
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              SignUp
-            </Link>
+              {isLoading ? "Loading..." : "Log in"}
+            </button>
+          </div>
+        </form>
+
+        {/* Demo Users Section */}
+        <div className="mt-6">
+          <p className="text-sm font-medium text-gray-700 mb-2">
+            Try Demo Users:
           </p>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {demoUsers.map((user, index) => (
+              <button
+                key={index}
+                type="button"
+                onClick={() => fillDemoData(user)}
+                className="w-full rounded-md border border-indigo-600 text-indigo-600 hover:bg-indigo-50 py-1 text-sm font-semibold"
+              >
+                {user.email.split("@")[0]}
+              </button>
+            ))}
+          </div>
         </div>
+
+        <p className="mt-10 text-center text-sm/6 text-gray-500">
+          create an account
+          <Link
+            to="/signup"
+            className="font-semibold ml-4 text-indigo-600 hover:text-indigo-500"
+          >
+            SignUp
+          </Link>
+        </p>
       </div>
-    </>
+    </div>
   );
 };
 
