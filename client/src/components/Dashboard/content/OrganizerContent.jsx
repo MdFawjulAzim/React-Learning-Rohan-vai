@@ -1,9 +1,10 @@
 import React from "react";
+import OrganizerMainContent from "./organizer/OrganizerMainContent";
 
 const OrganizerContent = () => {
   return (
     <>
-      <h1>OrganizerContent</h1>
+      <OrganizerMainContent />
     </>
   );
 };

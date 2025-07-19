@@ -34,10 +34,16 @@ const DashboardApi = createApi({
         url: "/user/dashboard",
       }),
     }),
+    getOrganizerDashboard: builder.query({
+      query: () => "/organizer/dashboard",
+    }),
   }),
 });
 
-export const { useGetAdminDashboardQuery, useGetUserDashboardQuery } =
-  DashboardApi;
+export const {
+  useGetAdminDashboardQuery,
+  useGetUserDashboardQuery,
+  useGetOrganizerDashboardQuery,
+} = DashboardApi;
 
 export default DashboardApi;
