@@ -1,12 +1,13 @@
 import React from "react";
 import { useGetUserDashboardQuery } from "../../../../redux/Features/Dashboard/DashboardApi";
+import Loader from "../../../../Loader/Loader";
+import ErrorPage from "../../../Error/ErrorPage";
 
 const UserMainContent = () => {
   const { data, isLoading, error } = useGetUserDashboardQuery();
-  console.log(data);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Failed to load user dashboard.</p>;
+  if (isLoading) return <Loader />;
+  if (error) return <ErrorPage Error={"Dashboard not found"} />;
 
   const stats = data?.data || {};
 

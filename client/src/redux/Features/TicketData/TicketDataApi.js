@@ -1,3 +1,4 @@
+// src/redux/api/tickets/TicketApi.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../../../baseUrl/baseUrl.js";
 
@@ -13,7 +14,7 @@ const TicketApi = createApi({
         token = JSON.parse(token);
       } catch (e) {
         console.log(e);
-        // Fallback if token is already a string
+        // If already a string, do nothing
       }
 
       if (token) {
@@ -23,7 +24,7 @@ const TicketApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["Ticket"],
+  tagTypes: ["Ticket", "UserTickets"],
 
   endpoints: (builder) => ({
     getAllTickets: builder.query({
@@ -32,9 +33,16 @@ const TicketApi = createApi({
       }),
       providesTags: ["Ticket"],
     }),
+    getMyTickets: builder.query({
+      query: () => ({
+        url: "/tickets",
+      }),
+      providesTags: ["UserTickets"],
+    }),
   }),
 });
 
-export const { useGetAllTicketsQuery } = TicketApi;
+// 🟢 Export hooks here
+export const { useGetAllTicketsQuery, useGetMyTicketsQuery } = TicketApi;
 
 export default TicketApi;
